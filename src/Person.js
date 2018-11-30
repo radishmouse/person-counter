@@ -1,33 +1,42 @@
 import React, { Component } from 'react';
 
-// function Person(props) {
-//   return (
-//     <span>{props.name}</span>
-//   );
-// }
-
 class Person extends Component {
     constructor(props) {
         super(props);
-        // this.props = props;        
+        // Let's set State
+        this.props = props;        
         this.state = {
-            count: 0
+            score: 0
         };
     }
 
-    componentDidMount() {
-        console.log(`yay ${this.props.name} mounted!`);
-        setInterval(() => {
-            this.setState({
-                count: this.state.count + 1
-            });
-        }, this.props.freq);
+    checkZero() {
+        if (this.state.score > 0) {
+            this.setState({ 
+                score: this.state.score - 1 
+            })
+        }
+    }
+
+    // Let Make the Add Score Function 
+    addScore = () => {
+        this.setState({ score: this.state.score + 1 });
+    }
+
+    subtractScore = () => {
+        this.checkZero()
+        
     }
 
     render() {
         console.log(`yay ${this.props.name} rendered!`);
         return (
-            <span>{this.props.name}: {this.state.count}</span>
+            <div>
+            {/* Let's Render out the Button inside of the Person */}
+                <span>{this.props.name}: {this.state.score}</span>
+                <button onClick={this.addScore}>+1</button>
+                <button onClick={this.subtractScore}>-1</button>
+            </div>
         );
     }
 }
